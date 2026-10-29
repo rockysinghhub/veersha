@@ -5,47 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#09090d">
+
   <title>VEERSHA — Embrace Life</title>
-  <meta name="description" content="VEERSHA — Embrace Life. Our memories, adventures, milestones and journey together.">
+  <meta name="description" content="VEERSHA — Embrace Life. Our memories, adventures and journey together.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italianno&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #09090d;
-      --panel: #16141a;
+      --panel: #141117;
       --pink: #f28eac;
-      --pink-light: #ffc4d5;
+      --pink-light: #ffc7d7;
       --text: #faf7f9;
-      --muted: #bcb3bb;
-      --border: rgba(255,255,255,.12);
+      --muted: #c9bec7;
+      --border: rgba(255,255,255,.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
-    body { background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; line-height: 1.6; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
     a { color: inherit; text-decoration: none; }
     button { font: inherit; cursor: pointer; }
-    img { max-width: 100%; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 4px;
+    }
 
     /* NAVIGATION */
+
     .navbar {
       position: absolute;
+      inset: 0 0 auto;
       z-index: 20;
-      top: 0;
-      left: 0;
-      width: 100%;
       min-height: 78px;
       padding: 18px 6%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      background: linear-gradient(rgba(0,0,0,.8), transparent);
+      background: linear-gradient(rgba(0,0,0,.65), transparent);
     }
 
     .logo {
-      font-size: 23px;
-      font-weight: 900;
+      font-size: 22px;
+      font-weight: 800;
       letter-spacing: 4px;
       white-space: nowrap;
     }
@@ -55,7 +73,7 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 23px;
+      gap: 22px;
     }
 
     .nav-links {
@@ -63,53 +81,55 @@
       align-items: center;
       gap: 22px;
       font-size: 12px;
-      color: #eee8ec;
+      color: #f2eaf0;
     }
 
-    .nav-links a:hover { color: var(--pink); }
+    .nav-links a:hover { color: var(--pink-light); }
 
     .music-button {
-      padding: 9px 13px;
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.4);
       background: rgba(0,0,0,.35);
       color: white;
+      border-radius: 30px;
+      padding: 10px 14px;
       font-size: 11px;
       white-space: nowrap;
     }
 
-    .music-button:hover,
     .music-button.is-playing {
       border-color: var(--pink);
       color: var(--pink-light);
     }
 
-    /* FULL-SCREEN IMMERSIVE HERO — DESIGN 4 */
+    /* FULL-SCREEN PHOTO AREA */
+
     .hero {
       position: relative;
-      min-height: 100vh;
-      min-height: 100svh;
+      isolation: isolate;
       overflow: hidden;
       background: #09090d;
     }
 
     .hero-slides {
       position: absolute;
+      z-index: -2;
       inset: 0;
       overflow: hidden;
-      background: radial-gradient(ellipse at 70% 35%, #51303e, transparent 52%), #09090d;
+      background:
+        radial-gradient(ellipse at 75% 35%, #51303e, transparent 55%),
+        #09090d;
     }
 
     .hero-slide {
       position: absolute;
       inset: 0;
-      width: 100%;
       height: 100%;
+      width: 100%;
       object-fit: cover;
       object-position: center 28%;
       opacity: 0;
-      transform: scale(1.045);
-      transition: opacity 1.25s ease, transform 7s ease;
+      transform: scale(1.035);
+      transition: opacity 1.3s ease, transform 7s ease;
     }
 
     .hero-slide.active {
@@ -117,68 +137,85 @@
       transform: scale(1);
     }
 
-    /* Keep the upper/central photo clean; darken the lower area for readable text. */
+    /* Faces remain visible in the upper portion.
+       The bottom gradually becomes dark behind the text. */
+
     .hero-slides::after {
       content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(0deg,
-          rgba(9,9,13,.99) 0%,
-          rgba(9,9,13,.85) 19%,
-          rgba(9,9,13,.34) 40%,
-          rgba(9,9,13,.04) 70%),
-        linear-gradient(90deg,
-          rgba(9,9,13,.40) 0%,
-          rgba(9,9,13,.08) 44%,
-          rgba(9,9,13,.05) 100%);
+        linear-gradient(
+          0deg,
+          rgba(9,9,13,1) 0%,
+          rgba(9,9,13,.97) 23%,
+          rgba(9,9,13,.82) 40%,
+          rgba(9,9,13,.38) 58%,
+          rgba(9,9,13,.04) 80%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(9,9,13,.18),
+          transparent 70%
+        );
+    }
+
+    /* KEY CHANGE:
+       The photo occupies the upper 82% of the screen.
+       The entire text panel begins below that area. */
+
+    .hero-stage {
+      position: relative;
+      z-index: 2;
+      padding-top: 82svh;
+      padding-bottom: 35px;
     }
 
     .hero-content {
-      position: absolute;
-      z-index: 2;
-      left: 6%;
-      bottom: 7%;
-      width: min(540px, 58%);
-      padding: 24px 28px 20px;
+      width: min(590px, 86%);
+      margin-left: 6%;
+      padding: 24px 28px 22px;
+      background: rgba(7,7,11,.44);
       border-left: 2px solid var(--pink);
-      background: linear-gradient(100deg, rgba(7,7,10,.56), rgba(7,7,10,.08));
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .eyebrow {
       color: var(--pink);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 4px;
+      letter-spacing: 3.5px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 5px;
     }
+
+    /* CURVY, ELEGANT SCRIPT TITLE */
 
     h1 {
-      max-width: 100%;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(42px, 5.8vw, 78px);
-      line-height: 1.02;
-      letter-spacing: -1.8px;
-      margin-bottom: 7px;
+      font-family: "Italianno", "Brush Script MT", cursive;
+      font-size: clamp(76px, 10vw, 118px);
+      font-weight: 400;
+      line-height: .93;
+      letter-spacing: 1px;
+      color: var(--pink-light);
+      margin-bottom: 2px;
     }
 
-    h1 span { color: var(--pink-light); }
-
     .tagline {
-      color: var(--pink-light);
-      font: italic clamp(25px, 3vw, 36px)/1.25 Georgia, serif;
-      margin-bottom: 12px;
+      font-family: "Italianno", "Brush Script MT", cursive;
+      font-size: clamp(37px, 4.5vw, 51px);
+      line-height: 1.05;
+      color: white;
+      margin-bottom: 15px;
     }
 
     .hero-description {
-      max-width: 470px;
-      color: #eee6eb;
+      max-width: 480px;
+      color: #e8dfe5;
       font-size: 13px;
-      line-height: 1.8;
+      line-height: 1.85;
       margin-bottom: 20px;
     }
 
@@ -186,143 +223,337 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: 43px;
       padding: 11px 17px;
       border: 1px solid transparent;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 800;
-      transition: transform .2s, background .2s;
-      margin: 0 7px 7px 0;
+      margin: 0 7px 8px 0;
+      transition: background .2s, transform .2s;
     }
 
     .button:hover { transform: translateY(-2px); }
-    .button-primary { background: var(--pink); color: #1b0c12; }
-    .button-primary:hover { background: #ffd3df; }
-    .button-secondary { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); }
-    .button-secondary:hover { background: rgba(255,255,255,.18); }
+
+    .button-primary {
+      background: var(--pink);
+      color: #190b11;
+    }
+
+    .button-primary:hover { background: #ffd5e0; }
+
+    .button-secondary {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.35);
+      color: white;
+    }
+
+    .button-secondary:hover { background: rgba(255,255,255,.15); }
 
     .hero-bottom {
       display: flex;
       align-items: center;
-      gap: 11px;
       flex-wrap: wrap;
-      margin-top: 18px;
-      color: #e1d4dc;
-      font-size: 10px;
+      gap: 10px;
+      margin-top: 17px;
+      color: #d9ccd5;
+      font-size: 9px;
       letter-spacing: 1.3px;
       text-transform: uppercase;
     }
 
     .slide-arrow {
-      width: 32px;
-      height: 32px;
+      height: 31px;
+      width: 31px;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.5);
-      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.4);
+      background: rgba(0,0,0,.25);
       color: white;
     }
 
-    .slide-arrow:hover { background: var(--pink); color: #1b0c12; }
-    .slide-counter { color: var(--pink-light); min-width: 42px; text-align: center; }
-    .hero-rule { width: 38px; height: 1px; background: var(--pink); }
-
-    #photoStatus {
-      color: #e5b7c6;
-      font-size: 12px;
-      margin-top: 9px;
+    .slide-arrow:hover {
+      background: var(--pink);
+      color: #190b11;
     }
 
-    /* GALLERY — PHOTO-ONLY TILES, NO LABELS OR CAPTIONS */
-    .section { padding: 78px 7%; }
-    .section-heading { font: 500 clamp(30px, 4vw, 43px)/1.25 Georgia, serif; margin-bottom: 11px; }
-    .section-heading span { color: var(--pink-light); font-style: italic; }
-    .section-intro { color: var(--muted); max-width: 620px; font-size: 14px; margin-bottom: 30px; }
+    .slide-counter {
+      min-width: 43px;
+      text-align: center;
+      color: var(--pink-light);
+    }
+
+    .hero-rule { width: 35px; height: 1px; background: var(--pink); }
+
+    #photoStatus {
+      color: var(--pink-light);
+      font-size: 11px;
+      margin-top: 8px;
+    }
+
+    /* PHOTO-ONLY GALLERY */
+
+    .section { padding: 76px 7%; }
+
+    .section-heading {
+      font: 500 clamp(30px, 4vw, 43px)/1.25 Georgia, serif;
+      margin-bottom: 10px;
+    }
+
+    .section-heading span {
+      color: var(--pink-light);
+      font-style: italic;
+    }
+
+    .section-intro {
+      max-width: 620px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .gallery-section { background: #0e0d12; }
-    .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
-    .memory-card { min-width: 0; overflow: hidden; background: var(--panel); border: 1px solid var(--border); border-radius: 5px; transition: transform .25s, border-color .25s; }
-    .memory-card:hover { transform: translateY(-4px); border-color: rgba(242,142,172,.55); }
-    .memory-photo { height: 300px; position: relative; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #35202b, #151218); overflow: hidden; }
-    .memory-photo img { display: block; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform .4s; }
-    .memory-card:hover .memory-photo img { transform: scale(1.035); }
-    .photo-placeholder { display: none; padding: 22px; text-align: center; color: var(--pink-light); font-size: 12px; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .memory-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--panel);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(242,142,172,.5);
+    }
+
+    .memory-photo {
+      height: 300px;
+      background: #211720;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .memory-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: zoom-in;
+      transition: transform .4s;
+    }
+
+    .memory-card:hover .memory-photo img { transform: scale(1.025); }
+
+    .photo-placeholder {
+      display: none;
+      padding: 20px;
+      color: var(--pink-light);
+      font-size: 12px;
+      text-align: center;
+    }
+
     .memory-photo.no-image .photo-placeholder { display: block; }
 
-    /* FULL-SIZE PHOTO VIEW */
-    .lightbox { display: none; position: fixed; inset: 0; z-index: 100; padding: 55px 18px 25px; background: rgba(0,0,0,.94); align-items: center; justify-content: center; }
+    /* ENLARGED PHOTO VIEW */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      padding: 50px 15px 20px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.95);
+    }
+
     .lightbox.open { display: flex; }
-    .lightbox img { max-width: 96%; max-height: 88vh; object-fit: contain; }
-    .lightbox-close { position: absolute; top: 12px; right: 18px; width: 42px; height: 42px; border: 1px solid #777; border-radius: 50%; background: #171419; color: white; font-size: 24px; }
 
-    /* OUR STORY */
-    .journey-section { text-align: center; background: radial-gradient(ellipse at center, rgba(115,52,77,.2), transparent 67%), #111015; }
+    .lightbox img {
+      max-width: 96%;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid #777;
+      border-radius: 50%;
+      background: #171419;
+      color: white;
+      font-size: 24px;
+    }
+
+    /* OUR JOURNEY */
+
+    .journey-section {
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(115,52,77,.19), transparent 68%),
+        #111015;
+    }
+
     .journey-content { max-width: 780px; margin: auto; }
-    .journey-quote { max-width: 730px; margin: 24px auto; color: var(--pink-light); font: italic clamp(24px, 3.5vw, 37px)/1.5 Georgia, serif; }
-    .journey-text { max-width: 670px; margin: auto; color: #c7bec5; font-size: 14px; line-height: 2; }
-    .journey-signature { margin-top: 28px; color: var(--pink); font-size: 10px; font-weight: bold; letter-spacing: 3px; }
 
-    /* CLOSING AND FOOTER */
-    .closing { padding: 78px 7%; text-align: center; background: radial-gradient(ellipse at center, #3b202c, #111015 70%); }
-    .closing h2 { font: 500 clamp(34px, 5vw, 55px)/1.25 Georgia, serif; margin-bottom: 13px; }
-    .closing h2 span { color: var(--pink-light); font-style: italic; }
-    .closing p { color: #c9c0c6; font-size: 14px; margin-bottom: 24px; }
-    footer { display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-wrap: wrap; padding: 25px 7%; border-top: 1px solid var(--border); color: #938a93; font-size: 11px; }
-    .footer-brand { color: var(--pink-light); font-size: 14px; font-weight: 900; letter-spacing: 3px; }
+    .journey-quote {
+      margin: 24px auto;
+      color: var(--pink-light);
+      font: italic clamp(24px, 3.5vw, 37px)/1.5 Georgia, serif;
+    }
+
+    .journey-text {
+      max-width: 660px;
+      margin: auto;
+      color: #c7bec5;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .journey-signature {
+      margin-top: 26px;
+      color: var(--pink);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    /* CLOSING */
+
+    .closing {
+      padding: 75px 7%;
+      text-align: center;
+      background: radial-gradient(ellipse at center, #3b202c, #111015 70%);
+    }
+
+    .closing h2 {
+      font: 500 clamp(34px, 5vw, 54px)/1.25 Georgia, serif;
+      margin-bottom: 12px;
+    }
+
+    .closing h2 span {
+      color: var(--pink-light);
+      font-style: italic;
+    }
+
+    .closing p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 25px 7%;
+      border-top: 1px solid var(--border);
+      color: #938a93;
+      font-size: 11px;
+    }
+
+    .footer-brand {
+      color: var(--pink-light);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
     .back-top { color: #ddd0d8; }
 
     /* TABLET */
+
     @media (max-width: 850px) {
       .navbar { padding: 16px 5%; }
       .nav-right { gap: 12px; }
-      .nav-links { gap: 13px; font-size: 11px; }
-      .hero-content { left: 4%; bottom: 5%; width: min(520px, 70%); }
-      h1 { font-size: clamp(42px, 7vw, 66px); }
+      .nav-links { gap: 12px; font-size: 11px; }
+
+      .hero-stage { padding-top: 82svh; }
+      .hero-content { width: min(570px, 90%); margin-left: 5%; }
+
+      h1 { font-size: clamp(76px, 12vw, 105px); }
       .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .memory-photo { height: 270px; }
     }
 
     /* MOBILE */
+
     @media (max-width: 560px) {
       .navbar {
         align-items: flex-start;
         flex-direction: column;
-        gap: 11px;
+        gap: 10px;
         padding: 14px 5%;
       }
-      .logo { font-size: 20px; }
-      .nav-right { width: 100%; justify-content: space-between; gap: 8px; }
-      .nav-links { flex: 1; justify-content: space-between; gap: 7px; font-size: 10px; }
+
+      .logo { font-size: 19px; }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 7px;
+      }
+
+      .nav-links {
+        flex: 1;
+        justify-content: space-between;
+        gap: 6px;
+        font-size: 10px;
+      }
+
       .music-button { padding: 8px 9px; font-size: 10px; }
 
-      .hero { min-height: 100vh; min-height: 100svh; }
+      .hero-stage {
+        padding-top: 82svh;
+        padding-bottom: 20px;
+      }
+
       .hero-slide { object-position: center 27%; }
+
       .hero-slides::after {
         background:
-          linear-gradient(0deg,
+          linear-gradient(
+            0deg,
             rgba(9,9,13,1) 0%,
-            rgba(9,9,13,.95) 20%,
-            rgba(9,9,13,.66) 39%,
-            rgba(9,9,13,.12) 70%),
-          linear-gradient(90deg, rgba(9,9,13,.22), transparent 75%);
+            rgba(9,9,13,.97) 26%,
+            rgba(9,9,13,.78) 48%,
+            rgba(9,9,13,.10) 82%
+          );
       }
-      .hero-content {
-        left: 5%;
-        bottom: 3.5%;
-        width: 90%;
-        padding: 17px 16px 13px;
-        background: linear-gradient(100deg, rgba(7,7,10,.72), rgba(7,7,10,.34));
-      }
-      .eyebrow { font-size: 9px; letter-spacing: 2.8px; margin-bottom: 9px; }
-      h1 { font-size: clamp(38px, 11vw, 58px); letter-spacing: -1px; }
-      .tagline { font-size: 27px; margin-bottom: 8px; }
-      .hero-description { font-size: 12px; line-height: 1.65; margin-bottom: 13px; }
-      .button { min-height: 40px; padding: 10px 12px; font-size: 10px; }
-      .hero-bottom { gap: 8px; margin-top: 11px; font-size: 9px; letter-spacing: 1px; }
-      .slide-arrow { width: 29px; height: 29px; }
 
-      .section { padding: 55px 5%; }
-      .gallery { grid-template-columns: 1fr; gap: 15px; }
+      .hero-content {
+        width: 92%;
+        margin-left: 4%;
+        padding: 18px 17px;
+        background: rgba(7,7,11,.62);
+      }
+
+      .eyebrow { font-size: 9px; letter-spacing: 2.6px; }
+      h1 { font-size: clamp(74px, 19vw, 100px); }
+      .tagline { font-size: 39px; }
+      .hero-description { font-size: 12px; line-height: 1.7; }
+
+      .button { padding: 10px 12px; font-size: 10px; }
+      .hero-bottom { gap: 8px; letter-spacing: 1px; }
+
+      .section { padding: 53px 5%; }
+      .gallery { grid-template-columns: 1fr; gap: 14px; }
       .memory-photo { height: min(390px, 90vw); }
+
       footer { flex-direction: column; text-align: center; }
     }
 
@@ -332,9 +563,12 @@
     }
   </style>
 </head>
+
 <body>
+
   <header class="navbar">
     <a href="#home" class="logo">VEER<span>SHA</span></a>
+
     <div class="nav-right">
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#home">Home</a>
@@ -342,57 +576,128 @@
         <a href="#journey">Our Story</a>
         <a href="#closing">Future</a>
       </nav>
-      <button id="musicToggle" class="music-button" type="button" aria-pressed="false" aria-label="Turn background music on or off">♫ Enable Music</button>
+
+      <button id="musicToggle" class="music-button"
+              type="button" aria-pressed="false">
+        ♫ Enable Music
+      </button>
     </div>
   </header>
 
   <main>
+
     <section class="hero" id="home">
-      <div class="hero-slides" id="heroSlides" aria-hidden="true">
+
+      <div class="hero-slides" aria-hidden="true">
         <img class="hero-slide" id="heroA" alt="">
         <img class="hero-slide" id="heroB" alt="">
       </div>
-      <div class="hero-content">
-        <p class="eyebrow">Two souls · One journey</p>
-        <h1>VEER<span>SHA</span></h1>
-        <p class="tagline">Embrace Life.</p>
-        <p class="hero-description">Different places. New experiences. Unforgettable memories. Our personal space to celebrate the life we share and the journey we are creating together.</p>
-        <a href="#memories" class="button button-primary">Explore Our Memories &rarr;</a>
-        <a href="#journey" class="button button-secondary">Our Story</a>
-        <div class="hero-bottom">
-          <button class="slide-arrow" id="previousSlide" type="button" aria-label="Previous slideshow photo">&#8592;</button>
-          <span class="slide-counter" id="slideCounter">-- / --</span>
-          <button class="slide-arrow" id="nextSlide" type="button" aria-label="Next slideshow photo">&#8594;</button>
-          <span class="hero-rule"></span>
-          <span>A life of our own</span>
+
+      <!-- Text is deliberately positioned below the upper photo area. -->
+      <div class="hero-stage">
+        <div class="hero-content">
+
+          <p class="eyebrow">Two souls · One journey</p>
+
+          <h1>Veersha</h1>
+
+          <p class="tagline">Embrace Life.</p>
+
+          <p class="hero-description">
+            Different places. New experiences. Unforgettable memories.
+            Our personal space to celebrate the life we share and the
+            journey we are creating together.
+          </p>
+
+          <a href="#memories" class="button button-primary">
+            Explore Our Memories &rarr;
+          </a>
+
+          <a href="#journey" class="button button-secondary">
+            Our Story
+          </a>
+
+          <div class="hero-bottom">
+            <button class="slide-arrow" id="previousSlide"
+                    type="button" aria-label="Previous photo">
+              &#8592;
+            </button>
+
+            <span class="slide-counter" id="slideCounter">-- / --</span>
+
+            <button class="slide-arrow" id="nextSlide"
+                    type="button" aria-label="Next photo">
+              &#8594;
+            </button>
+
+            <span class="hero-rule"></span>
+            <span>A life of our own</span>
+          </div>
+
+          <p id="photoStatus" role="status">
+            Loading our memories...
+          </p>
+
         </div>
-        <p id="photoStatus" role="status">Loading our memories...</p>
       </div>
     </section>
 
     <section class="section gallery-section" id="memories">
       <p class="eyebrow">Moments worth keeping</p>
-      <h2 class="section-heading">Our Life, <span>Our Memories.</span></h2>
-      <p class="section-intro">Every picture holds a moment. Every moment is part of our story. Select a photo to view it larger.</p>
+
+      <h2 class="section-heading">
+        Our Life, <span>Our Memories.</span>
+      </h2>
+
+      <p class="section-intro">
+        Every picture holds a moment. Every moment is part of our story.
+        Select a photo to view it larger.
+      </p>
+
       <div class="gallery" id="gallery"></div>
     </section>
 
     <section class="section journey-section" id="journey">
       <div class="journey-content">
         <p class="eyebrow">Our journey, our way</p>
-        <h2 class="section-heading">More Than Pictures. <span>A Life Together.</span></h2>
-        <p class="journey-quote">"We are not waiting for a perfect life. We are embracing the life we create together."</p>
-        <p class="journey-text">VEERSHA is our corner of the world. A place for the memories we make, the adventures we share, the people we become, and the progress we make together. No perfect script. No finish line. Just us, living our story one chapter at a time.</p>
-        <p class="journey-signature">TWO PEOPLE · ONE BEAUTIFUL JOURNEY</p>
+
+        <h2 class="section-heading">
+          More Than Pictures. <span>A Life Together.</span>
+        </h2>
+
+        <p class="journey-quote">
+          "We are not waiting for a perfect life.
+          We are embracing the life we create together."
+        </p>
+
+        <p class="journey-text">
+          VEERSHA is our corner of the world. A place for the memories
+          we make, the adventures we share, the people we become, and
+          the progress we make together. No perfect script. No finish
+          line. Just us, living our story one chapter at a time.
+        </p>
+
+        <p class="journey-signature">
+          TWO PEOPLE · ONE BEAUTIFUL JOURNEY
+        </p>
       </div>
     </section>
 
     <section class="closing" id="closing">
       <p class="eyebrow">The story continues</p>
+
       <h2>Here's to Everything <span>Ahead.</span></h2>
-      <p>More memories to make. More places to discover. More life to embrace.</p>
-      <a href="#home" class="button button-primary">Back to Our Beginning &uarr;</a>
+
+      <p>
+        More memories to make. More places to discover.
+        More life to embrace.
+      </p>
+
+      <a href="#home" class="button button-primary">
+        Back to Our Beginning &uarr;
+      </a>
     </section>
+
   </main>
 
   <footer>
@@ -401,25 +706,36 @@
     <a class="back-top" href="#home">Back to top &uarr;</a>
   </footer>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
-    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close enlarged photo">&times;</button>
+  <div class="lightbox" id="lightbox"
+       role="dialog" aria-modal="true" aria-label="Enlarged photo">
+    <button class="lightbox-close" id="lightboxClose"
+            type="button" aria-label="Close photo">
+      &times;
+    </button>
     <img id="lightboxImage" src="" alt="Enlarged couple photograph">
   </div>
 
-  <audio id="bgMusic" src="./music/veersha-music.mp3" loop preload="none"></audio>
+  <audio id="bgMusic"
+         src="./music/veersha-music.mp3"
+         loop preload="none"></audio>
 
   <script>
     "use strict";
 
-    // Music attempts autoplay on every page load. Browser policies may require a click.
+    // MUSIC
+    // The browser may block automatic sound until the visitor clicks.
     const music = document.getElementById("bgMusic");
     const musicToggle = document.getElementById("musicToggle");
+
     music.volume = 0.35;
 
-    function updateMusicButton(isPlaying) {
-      musicToggle.textContent = isPlaying ? "♫ Music On · Turn Off" : "♫ Enable Music";
-      musicToggle.classList.toggle("is-playing", isPlaying);
-      musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    function updateMusicButton(playing) {
+      musicToggle.textContent = playing
+        ? "♫ Music On · Turn Off"
+        : "♫ Enable Music";
+
+      musicToggle.classList.toggle("is-playing", playing);
+      musicToggle.setAttribute("aria-pressed", String(playing));
     }
 
     musicToggle.addEventListener("click", async function () {
@@ -428,6 +744,7 @@
         updateMusicButton(false);
         return;
       }
+
       try {
         await music.play();
         updateMusicButton(true);
@@ -449,10 +766,10 @@
       }
     });
 
-    // Slideshow uses the original photo paths listed in photos.json.
+    // SLIDESHOW: uses the exact paths provided by photos.json.
     const heroA = document.getElementById("heroA");
     const heroB = document.getElementById("heroB");
-    const slideCounter = document.getElementById("slideCounter");
+    const counter = document.getElementById("slideCounter");
     const photoStatus = document.getElementById("photoStatus");
     const gallery = document.getElementById("gallery");
 
@@ -464,11 +781,13 @@
 
     function showSlide(index) {
       if (!slideshowPhotos.length) {
-        slideCounter.textContent = "-- / --";
+        counter.textContent = "-- / --";
         return;
       }
 
-      const nextIndex = (index + slideshowPhotos.length) % slideshowPhotos.length;
+      const nextIndex =
+        (index + slideshowPhotos.length) % slideshowPhotos.length;
+
       const target = activeHero === heroA ? heroB : heroA;
       const token = ++transitionToken;
 
@@ -484,8 +803,9 @@
         activeHero = target;
         currentIndex = nextIndex;
 
-        slideCounter.textContent =
-          String(currentIndex + 1).padStart(2, "0") + " / " +
+        counter.textContent =
+          String(currentIndex + 1).padStart(2, "0") +
+          " / " +
           String(slideshowPhotos.length).padStart(2, "0");
 
         photoStatus.textContent = "";
@@ -497,12 +817,13 @@
         slideshowPhotos.splice(nextIndex, 1);
 
         if (!slideshowPhotos.length) {
-          slideCounter.textContent = "-- / --";
-          photoStatus.textContent = "No slideshow photos loaded. Check paths in photos.json.";
+          counter.textContent = "-- / --";
+          photoStatus.textContent =
+            "Slideshow photos could not load. Check photos.json.";
           return;
         }
 
-        showSlide(Math.max(0, nextIndex % slideshowPhotos.length));
+        showSlide(Math.min(nextIndex, slideshowPhotos.length - 1));
       };
 
       target.src = slideshowPhotos[nextIndex];
@@ -511,10 +832,13 @@
     function startSlideshow() {
       clearInterval(slideshowTimer);
 
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (!reducedMotion && slideshowPhotos.length > 1) {
-        slideshowTimer = setInterval(() => showSlide(currentIndex + 1), 5500);
+      if (
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        slideshowPhotos.length > 1
+      ) {
+        slideshowTimer = setInterval(function () {
+          showSlide(currentIndex + 1);
+        }, 5500);
       }
     }
 
@@ -528,7 +852,7 @@
       startSlideshow();
     });
 
-    // Photo-only gallery: no memory numbers, titles or descriptions.
+    // GALLERY: photos only, with no memory numbers or captions.
     function createGalleryCard(photo, index) {
       const card = document.createElement("article");
       card.className = "memory-card";
@@ -544,7 +868,7 @@
 
       const placeholder = document.createElement("div");
       placeholder.className = "photo-placeholder";
-      placeholder.textContent = "Photo unavailable. Check filename.";
+      placeholder.textContent = "Photo unavailable. Check its path.";
 
       img.addEventListener("error", function () {
         photoBox.classList.add("no-image");
@@ -552,7 +876,9 @@
       });
 
       img.addEventListener("click", function () {
-        if (img.naturalWidth > 0) openLightbox(img.src, img.alt);
+        if (img.naturalWidth > 0) {
+          openLightbox(img.src, img.alt);
+        }
       });
 
       photoBox.append(img, placeholder);
@@ -560,6 +886,7 @@
       return card;
     }
 
+    // PHOTO LIGHTBOX
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
@@ -586,12 +913,15 @@
       if (event.key === "Escape") closeLightbox();
     });
 
+    // LOAD BOTH COLLECTIONS FROM THE EXISTING MANIFEST.
     async function loadPhotos() {
       try {
-        const response = await fetch("./photos.json", { cache: "no-store" });
+        const response = await fetch("./photos.json", {
+          cache: "no-store"
+        });
 
         if (!response.ok) {
-          throw new Error("photos.json not found (HTTP " + response.status + ")");
+          throw new Error("photos.json returned HTTP " + response.status);
         }
 
         const manifest = await response.json();
@@ -606,7 +936,7 @@
 
         gallery.replaceChildren();
 
-        galleryPhotos.forEach((photo, index) => {
+        galleryPhotos.forEach(function (photo, index) {
           gallery.appendChild(createGalleryCard(photo, index));
         });
 
@@ -614,23 +944,30 @@
           showSlide(0);
           startSlideshow();
         } else {
-          photoStatus.textContent = "No slideshow photos listed in photos.json.";
+          photoStatus.textContent =
+            "No slideshow photos are listed in photos.json.";
         }
 
         if (!galleryPhotos.length) {
           const message = document.createElement("p");
           message.className = "section-intro";
-          message.textContent = "No gallery photos listed in photos.json.";
+          message.textContent =
+            "No gallery photos are listed in photos.json.";
           gallery.appendChild(message);
         }
       } catch (error) {
-        console.error("Photo manifest error:", error);
-        photoStatus.textContent = "Photos could not load. Confirm photos.json is in the repository root.";
+        console.error("Could not load photos:", error);
+
+        photoStatus.textContent =
+          "Photos could not load. Ensure photos.json is in the repository root.";
       }
     }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
     loadPhotos();
   </script>
+
 </body>
 </html>
