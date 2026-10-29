@@ -1,0 +1,934 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090d">
+
+  <title>VEERSHA — Embrace Life</title>
+  <meta name="description" content="VEERSHA — Embrace Life. Our memories, adventures, milestones and journey together.">
+
+  <style>
+    :root {
+      --bg: #09090d;
+      --panel: #16141a;
+      --pink: #f28eac;
+      --pink-light: #ffc4d5;
+      --text: #faf7f9;
+      --muted: #bcb3bb;
+      --border: rgba(255,255,255,.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    img { max-width: 100%; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 4px;
+    }
+
+    /* NAVIGATION */
+
+    .navbar {
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 78px;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: linear-gradient(rgba(0,0,0,.8), transparent);
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      white-space: nowrap;
+    }
+
+    .logo span { color: var(--pink); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+      color: #eee8ec;
+    }
+
+    .nav-links a:hover { color: var(--pink); }
+
+    .music-button {
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 24px;
+      background: rgba(0,0,0,.35);
+      color: white;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .music-button:hover,
+    .music-button.is-playing {
+      border-color: var(--pink);
+      color: var(--pink-light);
+    }
+
+    /* CINEMATIC HERO */
+
+    .hero {
+      min-height: 740px;
+      min-height: min(850px, 100svh);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 75% 35%, #51303e, transparent 50%),
+        linear-gradient(120deg, #09090d, #26131d);
+    }
+
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0;
+      transform: scale(1.035);
+      transition: opacity 1.2s ease, transform 6s ease;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hero-slides::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(9,9,13,.97) 0%,
+          rgba(9,9,13,.83) 32%,
+          rgba(9,9,13,.30) 72%,
+          rgba(9,9,13,.25) 100%
+        ),
+        linear-gradient(0deg, var(--bg), transparent 27%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(680px, 85%);
+      margin-left: 8%;
+      padding-top: 110px;
+      padding-bottom: 65px;
+    }
+
+    .eyebrow {
+      color: var(--pink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 19px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(57px, 9vw, 108px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 13px;
+    }
+
+    h1 span { color: var(--pink-light); }
+
+    .tagline {
+      color: var(--pink-light);
+      font: italic clamp(27px, 3.6vw, 40px)/1.3 Georgia, serif;
+      margin-bottom: 18px;
+    }
+
+    .hero-description {
+      max-width: 480px;
+      color: #ded5dc;
+      font-size: 14px;
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 19px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: transform .2s, background .2s;
+      margin: 0 8px 9px 0;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      background: var(--pink);
+      color: #1b0c12;
+    }
+
+    .button-primary:hover { background: #ffd3df; }
+
+    .button-secondary {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.32);
+    }
+
+    .button-secondary:hover { background: rgba(255,255,255,.18); }
+
+    .hero-bottom {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      color: #d1c4cd;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .slide-arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.4);
+      background: rgba(0,0,0,.35);
+      color: white;
+    }
+
+    .slide-arrow:hover {
+      background: var(--pink);
+      color: #1b0c12;
+    }
+
+    .slide-counter {
+      color: var(--pink-light);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .hero-rule { width: 42px; height: 1px; background: var(--pink); }
+
+    /* GENERAL SECTIONS */
+
+    .section { padding: 78px 7%; }
+
+    .section-heading {
+      font: 500 clamp(30px, 4vw, 43px)/1.25 Georgia, serif;
+      margin-bottom: 11px;
+    }
+
+    .section-heading span {
+      color: var(--pink-light);
+      font-style: italic;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .gallery-section { background: #0e0d12; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .memory-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      transition: transform .25s, border-color .25s;
+    }
+
+    .memory-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(242,142,172,.55);
+    }
+
+    .memory-photo {
+      height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #35202b, #151218);
+      overflow: hidden;
+    }
+
+    .memory-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: zoom-in;
+      transition: transform .4s;
+    }
+
+    .memory-card:hover .memory-photo img { transform: scale(1.035); }
+
+    .photo-placeholder {
+      display: none;
+      padding: 22px;
+      text-align: center;
+      color: var(--pink-light);
+      font-size: 12px;
+    }
+
+    .memory-photo.no-image .photo-placeholder { display: block; }
+
+    .memory-caption { padding: 15px 17px 18px; }
+
+    .memory-caption h3 {
+      font: 500 19px Georgia, serif;
+      margin-bottom: 5px;
+    }
+
+    .memory-caption p { color: var(--muted); font-size: 12px; }
+
+    /* FULL-SIZE PHOTO VIEW */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      padding: 55px 18px 25px;
+      background: rgba(0,0,0,.94);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 96%;
+      max-height: 88vh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid #777;
+      border-radius: 50%;
+      background: #171419;
+      color: white;
+      font-size: 24px;
+    }
+
+    /* OUR STORY */
+
+    .journey-section {
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(115,52,77,.2), transparent 67%),
+        #111015;
+    }
+
+    .journey-content { max-width: 780px; margin: auto; }
+
+    .journey-quote {
+      max-width: 730px;
+      margin: 24px auto;
+      color: var(--pink-light);
+      font: italic clamp(24px, 3.5vw, 37px)/1.5 Georgia, serif;
+    }
+
+    .journey-text {
+      max-width: 670px;
+      margin: auto;
+      color: #c7bec5;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .journey-signature {
+      margin-top: 28px;
+      color: var(--pink);
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    /* CLOSING */
+
+    .closing {
+      padding: 78px 7%;
+      text-align: center;
+      background:
+        linear-gradient(rgba(9,9,13,.83), rgba(9,9,13,.94)),
+        radial-gradient(ellipse at center, #56303f, #171117);
+    }
+
+    .closing h2 {
+      font: 500 clamp(34px, 5vw, 55px)/1.25 Georgia, serif;
+      margin-bottom: 13px;
+    }
+
+    .closing h2 span { color: var(--pink-light); font-style: italic; }
+
+    .closing p {
+      color: #c9c0c6;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 25px 7%;
+      border-top: 1px solid var(--border);
+      color: #938a93;
+      font-size: 11px;
+    }
+
+    .footer-brand {
+      color: var(--pink-light);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .back-top { color: #ddd0d8; }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+      .navbar { padding: 16px 5%; }
+      .nav-right { gap: 12px; }
+      .nav-links { gap: 13px; font-size: 11px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .memory-photo { height: 270px; }
+      .hero-content { margin-left: 6%; }
+    }
+
+    @media (max-width: 560px) {
+      .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 5%;
+      }
+
+      .logo { font-size: 20px; }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .nav-links {
+        flex: 1;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 10px;
+      }
+
+      .music-button { padding: 8px 9px; font-size: 10px; }
+
+      .hero {
+        min-height: 790px;
+        min-height: 95svh;
+      }
+
+      .hero-slides::after {
+        background:
+          linear-gradient(90deg, rgba(9,9,13,.85), rgba(9,9,13,.49)),
+          linear-gradient(0deg, var(--bg), transparent 50%);
+      }
+
+      .hero-slide { object-position: 58% center; }
+
+      .hero-content {
+        width: 89%;
+        margin-left: 6%;
+        padding-top: 130px;
+        padding-bottom: 55px;
+      }
+
+      h1 { font-size: clamp(53px, 14vw, 76px); letter-spacing: -2px; }
+      .hero-description { font-size: 13px; }
+      .button { padding: 11px 13px; font-size: 10px; }
+      .hero-bottom { gap: 9px; margin-top: 25px; }
+
+      .section { padding: 55px 5%; }
+      .gallery { grid-template-columns: 1fr; gap: 16px; }
+      .memory-photo { height: 330px; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="#home" class="logo">VEER<span>SHA</span></a>
+
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#memories">Gallery</a>
+        <a href="#journey">Our Story</a>
+        <a href="#closing">Future</a>
+      </nav>
+
+      <button id="musicToggle"
+              class="music-button"
+              type="button"
+              aria-pressed="false"
+              aria-label="Turn background music on or off">
+        ♫ Enable Music
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-slides" id="heroSlides" aria-hidden="true">
+        <img class="hero-slide" id="heroA" alt="">
+        <img class="hero-slide" id="heroB" alt="">
+      </div>
+
+      <div class="hero-content">
+        <p class="eyebrow">Two souls · One journey</p>
+
+        <h1>VEER<span>SHA</span></h1>
+
+        <p class="tagline">Embrace Life.</p>
+
+        <p class="hero-description">
+          Different places. New experiences. Unforgettable memories.
+          Our personal space to celebrate the life we share and the
+          journey we are creating together.
+        </p>
+
+        <a href="#memories" class="button button-primary">
+          Explore Our Memories &rarr;
+        </a>
+
+        <a href="#journey" class="button button-secondary">
+          Our Story
+        </a>
+
+        <div class="hero-bottom">
+          <button class="slide-arrow" id="previousSlide"
+                  type="button" aria-label="Previous slideshow photo">
+            &#8592;
+          </button>
+
+          <span class="slide-counter" id="slideCounter">-- / --</span>
+
+          <button class="slide-arrow" id="nextSlide"
+                  type="button" aria-label="Next slideshow photo">
+            &#8594;
+          </button>
+
+          <span class="hero-rule"></span>
+          <span>A life of our own</span>
+        </div>
+
+        <p id="photoStatus" role="status"
+           style="color:#e5b7c6;font-size:12px;margin-top:15px">
+          Loading our memories...
+        </p>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="memories">
+      <p class="eyebrow">Moments worth keeping</p>
+
+      <h2 class="section-heading">
+        Our Life, <span>Our Memories.</span>
+      </h2>
+
+      <p class="section-intro">
+        Every picture holds a moment. Every moment is part of our story.
+        Select a photo to view it larger.
+      </p>
+
+      <div class="gallery" id="gallery">
+        <!-- Photos are added automatically from photos.json. -->
+      </div>
+    </section>
+
+    <section class="section journey-section" id="journey">
+      <div class="journey-content">
+        <p class="eyebrow">Our journey, our way</p>
+
+        <h2 class="section-heading">
+          More Than Pictures. <span>A Life Together.</span>
+        </h2>
+
+        <p class="journey-quote">
+          "We are not waiting for a perfect life.
+          We are embracing the life we create together."
+        </p>
+
+        <p class="journey-text">
+          VEERSHA is our corner of the world. A place for the memories
+          we make, the adventures we share, the people we become, and
+          the progress we make together. No perfect script. No finish
+          line. Just us, living our story one chapter at a time.
+        </p>
+
+        <p class="journey-signature">
+          TWO PEOPLE · ONE BEAUTIFUL JOURNEY
+        </p>
+      </div>
+    </section>
+
+    <section class="closing" id="closing">
+      <p class="eyebrow">The story continues</p>
+      <h2>Here's to Everything <span>Ahead.</span></h2>
+      <p>More memories to make. More places to discover. More life to embrace.</p>
+      <a href="#home" class="button button-primary">
+        Back to Our Beginning &uarr;
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">VEERSHA</div>
+    <p>Embrace Life. &copy; <span id="year"></span></p>
+    <a class="back-top" href="#home">Back to top &uarr;</a>
+  </footer>
+
+  <div class="lightbox" id="lightbox"
+       role="dialog" aria-modal="true" aria-label="Enlarged photo">
+    <button class="lightbox-close" id="lightboxClose"
+            type="button" aria-label="Close enlarged photo">
+      &times;
+    </button>
+    <img id="lightboxImage" src="" alt="Enlarged memory">
+  </div>
+
+  <audio id="bgMusic"
+         src="./music/veersha-music.mp3"
+         loop
+         preload="none"></audio>
+
+  <script>
+    "use strict";
+
+    // MUSIC: attempts playback each time the page loads.
+    // Browsers may require a visitor's click before sound can start.
+    const music = document.getElementById("bgMusic");
+    const musicToggle = document.getElementById("musicToggle");
+
+    function updateMusicButton(isPlaying) {
+      musicToggle.textContent = isPlaying
+        ? "♫ Music On · Turn Off"
+        : "♫ Enable Music";
+
+      musicToggle.classList.toggle("is-playing", isPlaying);
+      musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    }
+
+    music.volume = 0.35;
+
+    musicToggle.addEventListener("click", async function () {
+      if (!music.paused) {
+        music.pause();
+        updateMusicButton(false);
+        return;
+      }
+
+      try {
+        await music.play();
+        updateMusicButton(true);
+      } catch (error) {
+        updateMusicButton(false);
+        musicToggle.textContent = "♫ Tap to Play";
+      }
+    });
+
+    music.addEventListener("play", () => updateMusicButton(true));
+    music.addEventListener("pause", () => updateMusicButton(false));
+
+    window.addEventListener("load", async function () {
+      try {
+        await music.play();
+        updateMusicButton(true);
+      } catch (error) {
+        updateMusicButton(false);
+      }
+    });
+
+    // PHOTO MANIFEST:
+    // photos.json contains the exact filenames from both folders.
+    const heroA = document.getElementById("heroA");
+    const heroB = document.getElementById("heroB");
+    const slideCounter = document.getElementById("slideCounter");
+    const photoStatus = document.getElementById("photoStatus");
+    const gallery = document.getElementById("gallery");
+
+    let slideshowPhotos = [];
+    let currentIndex = -1;
+    let activeHero = null;
+    let slideshowTimer = null;
+    let transitionToken = 0;
+
+    function showSlide(index) {
+      if (slideshowPhotos.length === 0) return;
+
+      const nextIndex =
+        (index + slideshowPhotos.length) % slideshowPhotos.length;
+
+      const target = activeHero === heroA ? heroB : heroA;
+      const token = ++transitionToken;
+
+      target.onload = function () {
+        if (token !== transitionToken) return;
+
+        target.classList.add("active");
+
+        if (activeHero && activeHero !== target) {
+          activeHero.classList.remove("active");
+        }
+
+        activeHero = target;
+        currentIndex = nextIndex;
+
+        slideCounter.textContent =
+          String(currentIndex + 1).padStart(2, "0") +
+          " / " +
+          String(slideshowPhotos.length).padStart(2, "0");
+      };
+
+      target.onerror = function () {
+        if (token !== transitionToken) return;
+
+        slideshowPhotos.splice(nextIndex, 1);
+
+        if (slideshowPhotos.length === 0) {
+          slideCounter.textContent = "-- / --";
+          photoStatus.textContent =
+            "No slideshow photos could be loaded. Check photos.json.";
+          return;
+        }
+
+        currentIndex = Math.min(currentIndex, slideshowPhotos.length - 1);
+        showSlide(Math.max(0, nextIndex % slideshowPhotos.length));
+      };
+
+      target.src = slideshowPhotos[nextIndex];
+    }
+
+    function startSlideshow() {
+      clearInterval(slideshowTimer);
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (!reducedMotion && slideshowPhotos.length > 1) {
+        slideshowTimer = setInterval(function () {
+          showSlide(currentIndex + 1);
+        }, 5500);
+      }
+    }
+
+    document.getElementById("nextSlide").addEventListener("click", function () {
+      showSlide(currentIndex + 1);
+      startSlideshow();
+    });
+
+    document.getElementById("previousSlide").addEventListener("click", function () {
+      showSlide(currentIndex - 1);
+      startSlideshow();
+    });
+
+    // BUILD THE GALLERY FROM ALL WEDDING PHOTOS.
+    function createGalleryCard(photo, index) {
+      const card = document.createElement("article");
+      card.className = "memory-card";
+
+      const photoBox = document.createElement("div");
+      photoBox.className = "memory-photo";
+
+      const img = document.createElement("img");
+      img.src = photo;
+      img.alt = "Wedding and couple memory " + (index + 1);
+      img.loading = "lazy";
+      img.decoding = "async";
+
+      const placeholder = document.createElement("div");
+      placeholder.className = "photo-placeholder";
+      placeholder.textContent = "Photo unavailable. Check its filename.";
+
+      img.addEventListener("error", function () {
+        photoBox.classList.add("no-image");
+        img.style.display = "none";
+      });
+
+      img.addEventListener("click", function () {
+        if (img.naturalWidth > 0) openLightbox(img.src, img.alt);
+      });
+
+      photoBox.append(img, placeholder);
+
+      const caption = document.createElement("div");
+      caption.className = "memory-caption";
+
+      const heading = document.createElement("h3");
+      heading.textContent = "Memory " + String(index + 1).padStart(2, "0");
+
+      const description = document.createElement("p");
+      description.textContent = "A little piece of our journey together.";
+
+      caption.append(heading, description);
+      card.append(photoBox, caption);
+      return card;
+    }
+
+    // ENLARGED PHOTO VIEW.
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    function openLightbox(src, alt) {
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      lightbox.classList.add("open");
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightboxImage.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeLightbox();
+    });
+
+    // LOAD THE MANIFEST FILE GENERATED ON YOUR COMPUTER.
+    async function loadPhotos() {
+      try {
+        const response = await fetch("./photos.json", { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error("photos.json was not found.");
+        }
+
+        const manifest = await response.json();
+
+        slideshowPhotos = Array.isArray(manifest.slideshow)
+          ? manifest.slideshow.filter(path => typeof path === "string")
+          : [];
+
+        const galleryPhotos = Array.isArray(manifest.gallery)
+          ? manifest.gallery.filter(path => typeof path === "string")
+          : [];
+
+        gallery.replaceChildren();
+
+        galleryPhotos.forEach(function (photo, index) {
+          gallery.appendChild(createGalleryCard(photo, index));
+        });
+
+        if (slideshowPhotos.length > 0) {
+          photoStatus.textContent = "";
+          showSlide(0);
+          startSlideshow();
+        } else {
+          photoStatus.textContent =
+            "No slideshow photos listed in photos.json.";
+        }
+
+        if (galleryPhotos.length === 0) {
+          const message = document.createElement("p");
+          message.className = "section-intro";
+          message.textContent = "No gallery photos were found in photos.json.";
+          gallery.appendChild(message);
+        }
+      } catch (error) {
+        console.error("Could not load photos:", error);
+
+        photoStatus.textContent =
+          "Photos could not load. Make sure photos.json is in the website's root folder.";
+      }
+    }
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    loadPhotos();
+  </script>
+
+</body>
+</html>
